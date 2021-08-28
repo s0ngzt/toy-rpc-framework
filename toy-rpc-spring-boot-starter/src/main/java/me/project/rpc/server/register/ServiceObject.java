@@ -31,23 +31,11 @@ public class ServiceObject {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Class<?> getClazz() {
         return clazz;
     }
 
-    public void setClazz(Class<?> clazz) {
-        this.clazz = clazz;
-    }
-
     public Object getObj() {
         return obj;
-    }
-
-    public void setObj(Object obj) {
-        this.obj = obj;
     }
 }

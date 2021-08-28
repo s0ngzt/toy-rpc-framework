@@ -15,7 +15,7 @@ import java.util.Map;
 public class SmoothWeightedRoundBalance implements LoadBalance {
 
     /**
-     * map (key: service, value: current weight)
+     * map (key: service, value: weight)
      */
     private static final Map<String, Integer> map = new HashMap<>();
 

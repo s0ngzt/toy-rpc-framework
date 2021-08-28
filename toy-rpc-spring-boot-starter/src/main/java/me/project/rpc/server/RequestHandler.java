@@ -59,12 +59,4 @@ public class RequestHandler {
     public void setProtocol(MessageProtocol protocol) {
         this.protocol = protocol;
     }
-
-    public ServiceRegister getServiceRegister() {
-        return serviceRegister;
-    }
-
-    public void setServiceRegister(ServiceRegister serviceRegister) {
-        this.serviceRegister = serviceRegister;
-    }
 }

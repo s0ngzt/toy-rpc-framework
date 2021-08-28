@@ -37,25 +37,11 @@ public class KryoMessageProtocol implements MessageProtocol {
 
     @Override
     public byte[] marshallingRequest(RpcRequest request) {
-//        ByteArrayOutputStream bout = new ByteArrayOutputStream();
-//        Output output = new Output(bout);
-//        Kryo kryo = getInstance();
-//        kryo.writeClassAndObject(output, request);
-//        byte[] bytes = output.toBytes();
-//        output.flush();
-//        return bytes;
         return marshalling(request);
     }
 
     @Override
     public byte[] marshallingResponse(RpcResponse response) {
-//        ByteArrayOutputStream bout = new ByteArrayOutputStream();
-//        Output output = new Output(bout);
-//        Kryo kryo = getInstance();
-//        kryo.writeClassAndObject(output, response);
-//        byte[] bytes = output.toBytes();
-//        output.flush();
-//        return bytes;
         return marshalling(response);
     }
 
@@ -71,26 +57,15 @@ public class KryoMessageProtocol implements MessageProtocol {
 
     @Override
     public RpcRequest unmarshallingRequest(byte[] data) {
-//        ByteArrayInputStream bin = new ByteArrayInputStream(data);
-//        Input input = new Input(bin);
-//        Kryo kryo = getInstance();
-//        RpcRequest request = (RpcRequest) kryo.readClassAndObject(input);
-//        input.close();
-//        return request;
         return unmarshalling(data);
     }
 
     @Override
     public RpcResponse unmarshallingResponse(byte[] data) {
-//        ByteArrayInputStream bin = new ByteArrayInputStream(data);
-//        Input input = new Input(bin);
-//        Kryo kryo = getInstance();
-//        RpcResponse response = (RpcResponse) kryo.readClassAndObject(input);
-//        input.close();
-//        return response;
         return unmarshalling(data);
     }
 
+    @SuppressWarnings("unchecked")
     private static <T> T unmarshalling(byte[] data) {
         ByteArrayInputStream bin = new ByteArrayInputStream(data);
         Input input = new Input(bin);

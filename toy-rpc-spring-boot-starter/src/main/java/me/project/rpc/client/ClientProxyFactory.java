@@ -4,11 +4,11 @@ import me.project.rpc.client.balance.LoadBalance;
 import me.project.rpc.client.cache.ServiceDiscoveryCache;
 import me.project.rpc.client.discovery.ServiceDiscoverer;
 import me.project.rpc.client.net.NetClient;
-import me.project.rpc.common.protocol.MessageProtocol;
-import me.project.rpc.common.model.RpcService;
 import me.project.rpc.common.exception.RpcException;
 import me.project.rpc.common.model.RpcRequest;
 import me.project.rpc.common.model.RpcResponse;
+import me.project.rpc.common.model.RpcService;
+import me.project.rpc.common.protocol.MessageProtocol;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -67,7 +67,7 @@ public class ClientProxyFactory {
 
             // 1. 获取服务信息
             String serviceName = this.clazz.getName();
-            List<RpcService> rpcServices = serviceDiscoverer.getServices(serviceName);
+            List<RpcService> rpcServices = getServiceList(serviceName);
             if (rpcServices == null || rpcServices.isEmpty()) throw new RpcException("No provider available!");
             var rpcService = loadBalance.chooseOne(rpcServices);
 
@@ -107,7 +107,7 @@ public class ClientProxyFactory {
      * @param serviceName 服务名称
      * @return 服务列表
      */
-    private synchronized List<RpcService> getServiceList(String serviceName) {
+    private List<RpcService> getServiceList(String serviceName) {
         List<RpcService> services;
         // TODO
         synchronized (serviceName) {

@@ -6,10 +6,12 @@ public abstract class RpcServer {
      * 服务端口
      */
     protected int port;
+
     /**
      * 服务协议
      */
     protected String protocol;
+
     /**
      * 请求处理者
      */
