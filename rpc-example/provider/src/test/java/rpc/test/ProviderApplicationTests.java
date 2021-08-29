@@ -1,10 +1,10 @@
-package cn.sp;
+package rpc.test;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ConsumerApplicationTests {
+class ProviderApplicationTests {
 
     @Test
     void contextLoads() {

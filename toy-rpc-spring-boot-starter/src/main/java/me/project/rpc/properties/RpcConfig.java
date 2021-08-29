@@ -14,27 +14,27 @@ public class RpcConfig {
     /**
      * 服务注册中心
      */
-    private String registerAddress = "127.0.0.1:2181";
+    private String registerAddress;
 
     /**
      * 服务端暴露端口
      */
-    private Integer serverPort = 9876;
+    private Integer serverPort;
 
     /**
      * 服务协议
      */
-    private String protocol = RpcConstant.PROTOCOL_PROTOSTUFF;
+    private String protocol;
 
     /**
      * 负载均衡算法
      */
-    private String loadBalance = RpcConstant.BALANCE_RANDOM;
+    private String loadBalance;
 
     /**
      * 权重，default to 1
      */
-    private Integer weight = 1;
+    private Integer weight;
 
     public String getRegisterAddress() {
         return registerAddress;

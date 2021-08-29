@@ -1,4 +1,4 @@
-package cn.sp;
+package rpc.test;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package cn.sp;
+package rpc.test;
 
 public enum ResultCode {
     SUCCESS(200, "success"),

@@ -1,4 +1,4 @@
-package cn.sp;
+package rpc.test;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,7 @@ public class TestController {
     private UserService userService;
 
     @GetMapping("/user")
-    public ApiResult<User> getUser(@RequestParam("id")Long id){
+    public ApiResult<User> getUser(@RequestParam("id") Long id) {
         return userService.getUser(id);
     }
 }

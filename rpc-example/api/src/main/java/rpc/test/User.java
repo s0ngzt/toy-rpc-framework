@@ -1,4 +1,4 @@
-package cn.sp;
+package rpc.test;
 
 import java.io.Serializable;
 
