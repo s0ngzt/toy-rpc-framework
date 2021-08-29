@@ -3,6 +3,7 @@ package cn.sp;
 import java.io.Serializable;
 
 public class ApiResult<T> implements Serializable {
+
     private static final long serialVersionUID = 5446115418395098891L;
     private Integer code;
     private String message;

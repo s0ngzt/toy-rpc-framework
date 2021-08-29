@@ -12,7 +12,7 @@
 
     <groupId>me.project</groupId>
     <artifactId>toy-rpc-spring-boot-starter</artifactId>
-    <version>0.0.1</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
     <name>toy-rpc-spring-boot-starter</name>
     <description>a toy RPC project</description>

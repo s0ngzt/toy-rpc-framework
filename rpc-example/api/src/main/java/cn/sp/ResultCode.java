@@ -6,8 +6,8 @@ public enum ResultCode {
     NOT_FOUND(404, "not found"),
     SYSTEM_ERROR(500, "system error");
 
-    private int code;
-    private String desc;
+    private final int code;
+    private final String desc;
 
     ResultCode(int code, String desc) {
         this.code = code;

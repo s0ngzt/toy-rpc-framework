@@ -69,7 +69,7 @@ public class ClientProxyFactory {
             String serviceName = this.clazz.getName();
             List<RpcService> rpcServices = getServiceList(serviceName);
             if (rpcServices == null || rpcServices.isEmpty()) throw new RpcException("No provider available!");
-            var rpcService = loadBalance.chooseOne(rpcServices);
+            RpcService rpcService = loadBalance.chooseOne(rpcServices);
 
             // 2. 构造 request 对象
             RpcRequest request = new RpcRequest();

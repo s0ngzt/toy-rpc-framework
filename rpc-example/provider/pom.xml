@@ -8,9 +8,9 @@
         <version>2.3.12.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>cn.sp</groupId>
+    <groupId>rpc.test</groupId>
     <artifactId>provider</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
     <name>provider</name>
     <description>Demo project for Spring Boot</description>
 
@@ -37,19 +37,17 @@
         </dependency>
 
         <dependency>
-            <groupId>cn.sp</groupId>
+            <groupId>rpc.test</groupId>
             <artifactId>api</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
         </dependency>
 
         <dependency>
             <groupId>me.project</groupId>
             <artifactId>toy-rpc-spring-boot-starter</artifactId>
-            <version>0.0.1</version>
+            <version>1.0</version>
         </dependency>
     </dependencies>
-
-
 
     <build>
         <plugins>
