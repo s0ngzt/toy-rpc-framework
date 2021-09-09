@@ -22,12 +22,10 @@ import java.util.concurrent.TimeUnit;
 public class NettyRpcServer extends RpcServer {
 
     private static final Logger logger = LoggerFactory.getLogger(NettyRpcServer.class);
-
-    private Channel channel;
-
     private static final ExecutorService pool = new ThreadPoolExecutor(4, 8, 200, TimeUnit.SECONDS,
             new LinkedBlockingQueue<>(1000),
             new ThreadFactoryBuilder().setNameFormat("rpcServer-%d").build());
+    private Channel channel;
 
     public NettyRpcServer(int port, String protocol, RequestHandler requestHandler) {
         super(port, protocol, requestHandler);
@@ -44,13 +42,12 @@ public class NettyRpcServer extends RpcServer {
                     .channel(NioServerSocketChannel.class)
                     .option(ChannelOption.SO_BACKLOG, 100)
                     .handler(new LoggingHandler(LogLevel.INFO)).childHandler(new ChannelInitializer<SocketChannel>() {
-
-                @Override
-                protected void initChannel(SocketChannel ch) {
-                    ChannelPipeline pipeline = ch.pipeline();
-                    pipeline.addLast(new ChannelRequestHandler());
-                }
-            });
+                        @Override
+                        protected void initChannel(SocketChannel ch) {
+                            ChannelPipeline pipeline = ch.pipeline();
+                            pipeline.addLast(new ChannelRequestHandler());
+                        }
+                    });
 
             // 启动服务
             ChannelFuture future = b.bind(port).sync();

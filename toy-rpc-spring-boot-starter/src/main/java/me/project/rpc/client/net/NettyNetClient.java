@@ -8,10 +8,10 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import me.project.rpc.client.net.handler.SendHandler;
 import me.project.rpc.client.net.handler.SendHandlerV2;
-import me.project.rpc.common.protocol.MessageProtocol;
-import me.project.rpc.common.model.RpcService;
 import me.project.rpc.common.model.RpcRequest;
 import me.project.rpc.common.model.RpcResponse;
+import me.project.rpc.common.model.RpcService;
+import me.project.rpc.common.protocol.MessageProtocol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,14 +30,12 @@ public class NettyNetClient implements NetClient {
             TimeUnit.SECONDS, new LinkedBlockingQueue<>(1000), new ThreadFactoryBuilder()
             .setNameFormat("rpcClient-%d")
             .build());
-
-    private final EventLoopGroup eventLoopGroup = new NioEventLoopGroup(4);
-
     /**
      * 已连接的服务缓存
      * key: 服务地址，格式：ip:port
      */
     public static Map<String, SendHandlerV2> connectedServerNodes = new ConcurrentHashMap<>();
+    private final EventLoopGroup eventLoopGroup = new NioEventLoopGroup(4);
 
     /**
      * 发送请求

@@ -5,17 +5,15 @@ import java.util.concurrent.*;
 // TODO
 public class RpcFuture<T> implements Future<T> {
 
-    private T response;
-
     /**
      * 因为请求和响应是一一对应的，所以这里是 1
      */
     private final CountDownLatch countDownLatch = new CountDownLatch(1);
-
     /**
      * Future的请求时间，用于计算Future是否超时
      */
     private final long beginTime = System.currentTimeMillis();
+    private T response;
 
     @Override
     public boolean cancel(boolean mayInterruptIfRunning) {

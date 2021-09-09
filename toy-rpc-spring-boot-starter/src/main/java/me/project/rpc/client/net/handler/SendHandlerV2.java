@@ -8,10 +8,10 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.ReferenceCountUtil;
 import me.project.rpc.client.net.NettyNetClient;
 import me.project.rpc.client.net.RpcFuture;
-import me.project.rpc.common.protocol.MessageProtocol;
 import me.project.rpc.common.exception.RpcException;
 import me.project.rpc.common.model.RpcRequest;
 import me.project.rpc.common.model.RpcResponse;
+import me.project.rpc.common.protocol.MessageProtocol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,8 +22,6 @@ import java.util.concurrent.TimeUnit;
 
 public class SendHandlerV2 extends ChannelInboundHandlerAdapter {
 
-    private static final Logger logger = LoggerFactory.getLogger(SendHandlerV2.class);
-
     /**
      * 等待通道建立最大时间
      */
@@ -32,16 +30,12 @@ public class SendHandlerV2 extends ChannelInboundHandlerAdapter {
      * 等待响应最大时间
      */
     static final int RESPONSE_WAIT_TIME = 8;
-
-    private volatile Channel channel;
-
-    private final String remoteAddress;
-
+    private static final Logger logger = LoggerFactory.getLogger(SendHandlerV2.class);
     private static final Map<String, RpcFuture<RpcResponse>> requestMap = new ConcurrentHashMap<>();
-
+    private final String remoteAddress;
     private final MessageProtocol messageProtocol;
-
     private final CountDownLatch cdl = new CountDownLatch(1);
+    private volatile Channel channel;
 
     public SendHandlerV2(MessageProtocol messageProtocol, String remoteAddress) {
         this.messageProtocol = messageProtocol;

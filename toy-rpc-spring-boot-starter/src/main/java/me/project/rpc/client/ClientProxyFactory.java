@@ -25,14 +25,10 @@ import static java.lang.reflect.Proxy.newProxyInstance;
  */
 public class ClientProxyFactory {
 
-    private ServiceDiscoverer serviceDiscoverer;
-
-    private Map<String, MessageProtocol> supportedMessageProtocols;
-
-    private NetClient netClient;
-
     private final Map<Class<?>, Object> objectCache = new HashMap<>();
-
+    private ServiceDiscoverer serviceDiscoverer;
+    private Map<String, MessageProtocol> supportedMessageProtocols;
+    private NetClient netClient;
     private LoadBalance loadBalance;
 
     /**
@@ -44,8 +40,54 @@ public class ClientProxyFactory {
      */
     @SuppressWarnings("unchecked")
     public <T> T getProxy(Class<T> clazz) {
+        // public static Object newProxyInstance(ClassLoader loader,
+        //                                       Class<?>[] interfaces, 接口
+        //                                       InvocationHandler h)
         return (T) this.objectCache.computeIfAbsent(clazz,
                 cls -> newProxyInstance(cls.getClassLoader(), new Class<?>[]{cls}, new ClientInvocationHandler(cls)));
+    }
+
+    /**
+     * 根据服务名获取可用的服务地址列表
+     *
+     * @param serviceName 服务名称
+     * @return 服务列表
+     */
+    private List<RpcService> getServiceList(String serviceName) {
+        List<RpcService> services;
+        // TODO
+        synchronized (serviceName) {
+            if (ServiceDiscoveryCache.isEmpty(serviceName)) {
+                services = serviceDiscoverer.getServices(serviceName);
+                if (services == null || services.size() == 0) {
+                    throw new RpcException("No provider available!");
+                }
+                ServiceDiscoveryCache.put(serviceName, services);
+            } else {
+                services = ServiceDiscoveryCache.getServiceList(serviceName);
+            }
+        }
+        return services;
+    }
+
+    public void setSupportMessageProtocols(Map<String, MessageProtocol> supportMessageProtocols) {
+        this.supportedMessageProtocols = supportMessageProtocols;
+    }
+
+    public void setNetClient(NetClient netClient) {
+        this.netClient = netClient;
+    }
+
+    public void setLoadBalance(LoadBalance loadBalance) {
+        this.loadBalance = loadBalance;
+    }
+
+    public ServiceDiscoverer getServiceDiscoverer() {
+        return serviceDiscoverer;
+    }
+
+    public void setServiceDiscoverer(ServiceDiscoverer serviceDiscoverer) {
+        this.serviceDiscoverer = serviceDiscoverer;
     }
 
     /**
@@ -90,6 +132,8 @@ public class ClientProxyFactory {
 
             // 5. 解组响应消息
             // RpcResponse response = protocol.unmarshallingResponse(responseData);
+
+            // 合并 3、4、5 步
             RpcResponse response = netClient.sendRequest(request, rpcService, protocol);
             if (response == null) throw new RpcException("the response is null.");
 
@@ -99,48 +143,5 @@ public class ClientProxyFactory {
             }
             return response.getReturnValue();
         }
-    }
-
-    /**
-     * 根据服务名获取可用的服务地址列表
-     *
-     * @param serviceName 服务名称
-     * @return 服务列表
-     */
-    private List<RpcService> getServiceList(String serviceName) {
-        List<RpcService> services;
-        // TODO
-        synchronized (serviceName) {
-            if (ServiceDiscoveryCache.isEmpty(serviceName)) {
-                services = serviceDiscoverer.getServices(serviceName);
-                if (services == null || services.size() == 0) {
-                    throw new RpcException("No provider available!");
-                }
-                ServiceDiscoveryCache.put(serviceName, services);
-            } else {
-                services = ServiceDiscoveryCache.getServiceList(serviceName);
-            }
-        }
-        return services;
-    }
-
-    public void setSupportMessageProtocols(Map<String, MessageProtocol> supportMessageProtocols) {
-        this.supportedMessageProtocols = supportMessageProtocols;
-    }
-
-    public void setNetClient(NetClient netClient) {
-        this.netClient = netClient;
-    }
-
-    public void setServiceDiscoverer(ServiceDiscoverer serviceDiscoverer) {
-        this.serviceDiscoverer = serviceDiscoverer;
-    }
-
-    public void setLoadBalance(LoadBalance loadBalance) {
-        this.loadBalance = loadBalance;
-    }
-
-    public ServiceDiscoverer getServiceDiscoverer() {
-        return serviceDiscoverer;
     }
 }

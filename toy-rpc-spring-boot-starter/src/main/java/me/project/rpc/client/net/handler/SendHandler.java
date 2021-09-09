@@ -18,10 +18,8 @@ public class SendHandler extends ChannelInboundHandlerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(SendHandler.class);
 
     private final CountDownLatch countDownLatch;
-
-    private Object readMsg;
-
     private final byte[] data;
+    private Object readMsg;
 
     public SendHandler(byte[] data) {
         countDownLatch = new CountDownLatch(1);

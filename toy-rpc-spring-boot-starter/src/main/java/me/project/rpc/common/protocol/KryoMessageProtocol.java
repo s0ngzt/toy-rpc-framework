@@ -35,16 +35,6 @@ public class KryoMessageProtocol implements MessageProtocol {
         return kryoLocal.get();
     }
 
-    @Override
-    public byte[] marshallingRequest(RpcRequest request) {
-        return marshalling(request);
-    }
-
-    @Override
-    public byte[] marshallingResponse(RpcResponse response) {
-        return marshalling(response);
-    }
-
     private static <T> byte[] marshalling(T message) {
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
         Output output = new Output(bout);
@@ -55,16 +45,6 @@ public class KryoMessageProtocol implements MessageProtocol {
         return bytes;
     }
 
-    @Override
-    public RpcRequest unmarshallingRequest(byte[] data) {
-        return unmarshalling(data);
-    }
-
-    @Override
-    public RpcResponse unmarshallingResponse(byte[] data) {
-        return unmarshalling(data);
-    }
-
     @SuppressWarnings("unchecked")
     private static <T> T unmarshalling(byte[] data) {
         ByteArrayInputStream bin = new ByteArrayInputStream(data);
@@ -73,5 +53,25 @@ public class KryoMessageProtocol implements MessageProtocol {
         T message = (T) kryo.readClassAndObject(input);
         input.close();
         return message;
+    }
+
+    @Override
+    public byte[] marshallingRequest(RpcRequest request) {
+        return marshalling(request);
+    }
+
+    @Override
+    public byte[] marshallingResponse(RpcResponse response) {
+        return marshalling(response);
+    }
+
+    @Override
+    public RpcRequest unmarshallingRequest(byte[] data) {
+        return unmarshalling(data);
+    }
+
+    @Override
+    public RpcResponse unmarshallingResponse(byte[] data) {
+        return unmarshalling(data);
     }
 }

@@ -14,13 +14,13 @@ import java.util.stream.Collectors;
 public class ServiceDiscoveryCache {
 
     /**
-     * key: serviceName
-     */
-    private static final Map<String, List<RpcService>> SERVER_MAP = new ConcurrentHashMap<>();
-    /**
      * 客户端注入的远程服务 service class
      */
     public static final List<String> SERVICE_CLASS_NAMES = new ArrayList<>();
+    /**
+     * key: serviceName
+     */
+    private static final Map<String, List<RpcService>> SERVER_MAP = new ConcurrentHashMap<>();
 
     public static void put(String serviceName, List<RpcService> serviceList) {
         SERVER_MAP.put(serviceName, serviceList);
@@ -38,6 +38,11 @@ public class ServiceDiscoveryCache {
         );
     }
 
+    /**
+     * 移除服务
+     *
+     * @param serviceName 服务名称
+     */
     public static void removeAll(String serviceName) {
         SERVER_MAP.remove(serviceName);
     }

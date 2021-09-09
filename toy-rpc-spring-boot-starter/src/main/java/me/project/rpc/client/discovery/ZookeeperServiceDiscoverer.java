@@ -2,8 +2,8 @@ package me.project.rpc.client.discovery;
 
 import com.alibaba.fastjson.JSON;
 import me.project.rpc.common.constants.RpcConstant;
-import me.project.rpc.common.serializer.ZookeeperSerializer;
 import me.project.rpc.common.model.RpcService;
+import me.project.rpc.common.serializer.ZookeeperSerializer;
 import org.I0Itec.zkclient.ZkClient;
 
 import java.net.URLDecoder;

@@ -55,16 +55,16 @@ public class RpcRequest implements Serializable {
         this.parameterTypes = parameterTypes;
     }
 
-    public void setParameters(Object[] parameters) {
-        this.parameters = parameters;
-    }
-
     public String getHeader(String name) {
         return this.headers == null ? null : this.headers.get(name);
     }
 
     public Object[] getParameters() {
         return this.parameters;
+    }
+
+    public void setParameters(Object[] parameters) {
+        this.parameters = parameters;
     }
 
     public String getRequestId() {

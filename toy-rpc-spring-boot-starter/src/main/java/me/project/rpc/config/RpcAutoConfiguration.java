@@ -6,8 +6,8 @@ import me.project.rpc.client.ClientProxyFactory;
 import me.project.rpc.client.balance.LoadBalance;
 import me.project.rpc.client.discovery.ZookeeperServiceDiscoverer;
 import me.project.rpc.client.net.NettyNetClient;
-import me.project.rpc.common.protocol.MessageProtocol;
 import me.project.rpc.common.exception.RpcException;
+import me.project.rpc.common.protocol.MessageProtocol;
 import me.project.rpc.properties.RpcConfig;
 import me.project.rpc.server.NettyRpcServer;
 import me.project.rpc.server.RequestHandler;
@@ -83,7 +83,7 @@ public class RpcAutoConfiguration {
         clientProxyFactory.setServiceDiscoverer(new ZookeeperServiceDiscoverer(rpcConfig.getRegisterAddress()));
 
         // 设置支持的协议
-        Map<String, MessageProtocol> supportMessageProtocols = buildSupportMessageProtocols();
+        Map<String, MessageProtocol> supportMessageProtocols = buildSupportMessageProtocolMap();
         clientProxyFactory.setSupportMessageProtocols(supportMessageProtocols);
         // 设置负载均衡算法
         LoadBalance loadBalance = getLoadBalance(rpcConfig.getLoadBalance());
@@ -109,7 +109,7 @@ public class RpcAutoConfiguration {
         throw new RpcException("Invalid load balance configuration.");
     }
 
-    private Map<String, MessageProtocol> buildSupportMessageProtocols() {
+    private Map<String, MessageProtocol> buildSupportMessageProtocolMap() {
         Map<String, MessageProtocol> supportMessageProtocols = new HashMap<>();
         ServiceLoader<MessageProtocol> loader = ServiceLoader.load(MessageProtocol.class);
         for (MessageProtocol messageProtocol : loader) {

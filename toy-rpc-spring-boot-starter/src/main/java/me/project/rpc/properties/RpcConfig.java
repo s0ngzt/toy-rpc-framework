@@ -1,6 +1,5 @@
 package me.project.rpc.properties;
 
-import me.project.rpc.common.constants.RpcConstant;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 

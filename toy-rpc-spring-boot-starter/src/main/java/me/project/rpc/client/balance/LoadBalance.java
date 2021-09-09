@@ -9,7 +9,6 @@ import java.util.List;
  */
 public interface LoadBalance {
     /**
-     *
      * @param services services 服务列表
      * @return 选择
      */

@@ -40,6 +40,7 @@ public class DefaultRpcProcessor implements ApplicationListener<ContextRefreshed
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
+        // ApplicationContext 被初始化或刷新时，该事件被发布。
         if (Objects.isNull(event.getApplicationContext().getParent())) {
             ApplicationContext context = event.getApplicationContext();
             // 开启服务
@@ -53,13 +54,14 @@ public class DefaultRpcProcessor implements ApplicationListener<ContextRefreshed
         Map<String, Object> beans = context.getBeansWithAnnotation(RpcServiceProvider.class);
         if (beans.size() > 0) {
             boolean startServerFlag = true;
+
             for (Object obj : beans.values()) {
                 try {
                     Class<?> clazz = obj.getClass();
                     Class<?>[] interfaces = clazz.getInterfaces();
                     ServiceObject so;
-                    // 如果只实现了一个接口就用父类的className作为服务名
-                    // 如果该类实现了多个接口，则用注解里的value作为服务名
+                    // 如果只实现了一个接口就用父类的 className 作为服务名
+                    // 如果该类实现了多个接口，则用注解里的 value 作为服务名
                     if (interfaces.length != 1) {
                         RpcServiceProvider service = clazz.getAnnotation(RpcServiceProvider.class);
                         String value = service.value();
@@ -76,9 +78,8 @@ public class DefaultRpcProcessor implements ApplicationListener<ContextRefreshed
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
-
+            // 一个服务器启动一个 NettyServer
             if (startServerFlag) {
                 rpcServer.start();
             }
@@ -95,7 +96,7 @@ public class DefaultRpcProcessor implements ApplicationListener<ContextRefreshed
 
             Field[] declaredFields = clazz.getDeclaredFields();
             for (Field field : declaredFields) {
-                // 找出标记了InjectService注解的属性
+                // 找出标记了 InjectService 注解的属性
                 RpcServiceConsumer injectService = field.getAnnotation(RpcServiceConsumer.class);
                 if (injectService == null) {
                     continue;
