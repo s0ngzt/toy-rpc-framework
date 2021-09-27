@@ -22,14 +22,8 @@ import java.util.concurrent.TimeUnit;
 
 public class SendHandlerV2 extends ChannelInboundHandlerAdapter {
 
-    /**
-     * 等待通道建立最大时间
-     */
-    static final int CHANNEL_WAIT_TIME = 4;
-    /**
-     * 等待响应最大时间
-     */
-    static final int RESPONSE_WAIT_TIME = 8;
+    static final int CHANNEL_WAIT_TIME = 4; // 等待通道建立最大时间
+    static final int RESPONSE_WAIT_TIME = 8; // 等待响应最大时间
     private static final Logger logger = LoggerFactory.getLogger(SendHandlerV2.class);
     private static final Map<String, RpcFuture<RpcResponse>> requestMap = new ConcurrentHashMap<>();
     private final String remoteAddress;

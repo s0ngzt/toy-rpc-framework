@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 /**
- * 子节点时间监听处理类
+ * 子节点事件监听处理类
  */
 public class ZkChildListener implements IZkChildListener {
     private static final Logger logger = LoggerFactory.getLogger(ZkChildListener.class);

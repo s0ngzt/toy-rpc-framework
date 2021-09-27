@@ -2,20 +2,9 @@ package me.project.rpc.server;
 
 public abstract class RpcServer {
 
-    /**
-     * 服务端口
-     */
-    protected int port;
-
-    /**
-     * 服务协议
-     */
-    protected String protocol;
-
-    /**
-     * 请求处理者
-     */
-    protected RequestHandler requestHandler;
+    protected int port; // 服务端口
+    protected String protocol; // 服务协议
+    protected RequestHandler requestHandler; // 请求处理器
 
     public RpcServer(int port, String protocol, RequestHandler requestHandler) {
         this.port = port;

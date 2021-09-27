@@ -81,7 +81,6 @@ public class RpcAutoConfiguration {
         ClientProxyFactory clientProxyFactory = new ClientProxyFactory();
         // 设置服务发现者
         clientProxyFactory.setServiceDiscoverer(new ZookeeperServiceDiscoverer(rpcConfig.getRegisterAddress()));
-
         // 设置支持的协议
         Map<String, MessageProtocol> supportMessageProtocols = buildSupportMessageProtocolMap();
         clientProxyFactory.setSupportMessageProtocols(supportMessageProtocols);

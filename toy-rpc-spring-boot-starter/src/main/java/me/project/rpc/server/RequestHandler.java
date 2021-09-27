@@ -16,7 +16,7 @@ public class RequestHandler {
 
     private MessageProtocol protocol;
 
-    private ServiceRegister serviceRegister;
+    private final ServiceRegister serviceRegister;
 
     public RequestHandler(MessageProtocol protocol, ServiceRegister serviceRegister) {
         this.protocol = protocol;

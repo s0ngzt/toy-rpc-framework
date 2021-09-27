@@ -22,7 +22,8 @@ import java.util.concurrent.TimeUnit;
 public class NettyRpcServer extends RpcServer {
 
     private static final Logger logger = LoggerFactory.getLogger(NettyRpcServer.class);
-    private static final ExecutorService pool = new ThreadPoolExecutor(4, 8, 200, TimeUnit.SECONDS,
+    private static final ExecutorService pool = new ThreadPoolExecutor(4, 8,
+            200, TimeUnit.SECONDS,
             new LinkedBlockingQueue<>(1000),
             new ThreadFactoryBuilder().setNameFormat("rpcServer-%d").build());
     private Channel channel;

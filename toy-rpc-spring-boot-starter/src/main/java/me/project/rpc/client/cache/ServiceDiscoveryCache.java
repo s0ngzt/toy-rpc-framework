@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 /**
  * 服务发现本地缓存
@@ -24,18 +23,6 @@ public class ServiceDiscoveryCache {
 
     public static void put(String serviceName, List<RpcService> serviceList) {
         SERVER_MAP.put(serviceName, serviceList);
-    }
-
-    /**
-     * 去除指定的值
-     *
-     * @param serviceName 服务名称
-     * @param service     服务
-     */
-    public static void remove(String serviceName, RpcService service) {
-        SERVER_MAP.computeIfPresent(serviceName, (key, value) ->
-                value.stream().filter(o -> !o.equals(service)).collect(Collectors.toList())
-        );
     }
 
     /**
